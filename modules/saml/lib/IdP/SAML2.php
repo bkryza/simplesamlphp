@@ -15,7 +15,7 @@ class sspmod_saml_IdP_SAML2 {
 	public static function sendResponse(array $state) {
 		assert('isset($state["Attributes"])');
 		assert('isset($state["SPMetadata"])');
-		assert('isset($state["saml:ConsumerURL"])');
+		assert('array_key_exists("saml:ConsumerURL", $state)'); // Can be NULL.
 		assert('array_key_exists("saml:RequestId", $state)'); // Can be NULL.
 		assert('array_key_exists("saml:RelayState", $state)'); // Can be NULL.
 
@@ -87,7 +87,7 @@ class sspmod_saml_IdP_SAML2 {
 	 */
 	public static function handleAuthError(SimpleSAML_Error_Exception $exception, array $state) {
 		assert('isset($state["SPMetadata"])');
-		assert('isset($state["saml:ConsumerURL"])');
+		assert('array_key_exists("saml:ConsumerURL", $state)'); // Can be NULL.
 		assert('array_key_exists("saml:RequestId", $state)'); // Can be NULL.
 		assert('array_key_exists("saml:RelayState", $state)'); // Can be NULL.
 
@@ -771,7 +771,7 @@ class sspmod_saml_IdP_SAML2 {
 	private static function buildAssertion(SimpleSAML_Configuration $idpMetadata,
 		SimpleSAML_Configuration $spMetadata, array &$state) {
 		assert('isset($state["Attributes"])');
-		assert('isset($state["saml:ConsumerURL"])');
+		assert('array_key_exists("saml:ConsumerURL", $state)'); // Can be NULL.
 
 		$signAssertion = $spMetadata->getBoolean('saml20.sign.assertion', NULL);
 		if ($signAssertion === NULL) {
