@@ -75,6 +75,9 @@ class sspmod_saml_IdP_SAML2 {
 
 		/* Send the response. */
 		$binding = SAML2_Binding::getBinding($protocolBinding);
+		if ($binding instanceof SAML2_SOAP) {
+			$binding->AssertionConsumerServiceURL = $consumerURL; 
+		}
 		$binding->send($ar);
 	}
 
